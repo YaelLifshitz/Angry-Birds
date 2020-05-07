@@ -6,13 +6,13 @@ class BlueBird(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super(self.__class__, self).__init__()
         self.image = pygame.image.load('angry bird blue.png').convert()
-        pink_player = (255, 20, 147)
-        self.image.set_colorkey(pink_player)
+        PINK_BACKGROUND = (255, 20, 147)
+        self.image.set_colorkey(PINK_BACKGROUND)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.__vx = 20
-        self.__vy = 20
+        self.__vy = 0
 
     # the next few methodes rule is to find the birds locations each time we want
     def update_v(self, vx, vy):
@@ -35,13 +35,13 @@ class BlackBird(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super(self.__class__, self).__init__()
         self.image = pygame.image.load('angry bird black.png').convert()
-        pink_player = (255, 20, 147)
-        self.image.set_colorkey(pink_player)
+        PINK_BACKGROUND = (255, 20, 147)
+        self.image.set_colorkey(PINK_BACKGROUND)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.__vx = 20
-        self.__vy = 20
+        self.__vy = 0
 
     # the next few methodes rule is to find the birds locations each time we want
     def update_v(self, vx, vy):
@@ -52,6 +52,7 @@ class BlackBird(pygame.sprite.Sprite):
         self.rect.x += self.__vx
         self.rect.y += self.__vy
 
+    # the next few methodes rule is to find the birds locations each time we want
     def get_pos(self):
         return self.rect.x, self.rect.y
 
@@ -64,8 +65,8 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super(self.__class__, self).__init__()
         self.image = pygame.image.load('bullet.png').convert()
-        pink_player = (255, 20, 147)
-        self.image.set_colorkey(pink_player)
+        PINK_BACKGROUND = (255, 20, 147)
+        self.image.set_colorkey(PINK_BACKGROUND)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
