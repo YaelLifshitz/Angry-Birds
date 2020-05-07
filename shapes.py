@@ -2,12 +2,13 @@ import pygame
 
 
 class BlueBird(pygame.sprite.Sprite):
-    # the constructor
+    # the constructor/ sprite for the blue bird
     def __init__(self, x, y):
         super(self.__class__, self).__init__()
         self.image = pygame.image.load('angry bird blue.png').convert()
         PINK_BACKGROUND = (255, 20, 147)
         self.image.set_colorkey(PINK_BACKGROUND)
+        # Every image has a rectangle around it- the image size - the get_rect function gives us that
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

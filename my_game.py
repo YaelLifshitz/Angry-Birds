@@ -11,6 +11,11 @@ FPS = 60 # frames per sec
 SOUND_FILE = "Angry Birds Theme Song.mp3"
 IMAGE_BACKGROUND = 'clouds background.jpg' # background game image
 
+# setting of mouse movement:
+LEFT = 1
+SCROLL = 2
+RIGHT = 3
+
 ## initialzing pygame and creating a window
 
 # Init screen
@@ -34,11 +39,6 @@ pygame.display.flip()
 # refreshing screen rate for moving objects
 clock = pygame.time.Clock()
 
-# setting of mouse movement:
-LEFT = 1
-SCROLL = 2
-RIGHT = 3
-
 # init music
 pygame.mixer.init()
 pygame.mixer.music.load(SOUND_FILE)
@@ -52,6 +52,7 @@ finish = False
 while not finish:
     # Keep loop running at the same speed
     clock.tick(FPS)
+    pygame.display.flip()
     # Process input (events)
     for event in pygame.event.get():
         # Check if user closed the window
@@ -61,33 +62,46 @@ while not finish:
             x, y = pygame.mouse.get_pos()
             mouse_point = pygame.mouse.get_pos()
             screen.blit(player_image, mouse_point)
+
+            # Creating the bullets
             bullet = Bullet(x, y)
             all_bullets.add(bullet)
+            screen.blit(bullet.image, bullet.get_pos())
+            pygame.display.flip()
+
         else:
             x, y = pygame.mouse.get_pos()
 
+    # In order to not leaving marks on background from moving objects
+    screen.blit(img_background, (0, 0))
+
+
+
+    for i in range(1):
+        y1 = randint(0, 400)
+        y2 = randint(0, 400)
+        bird = BlackBird(0, y1)
+        all_birds.add(bird)
+        bird = BlueBird(0, y2)
+        all_birds.add(bird)
+
+
+    all_birds.draw(screen)
+
+
+
     # Updates:
 
-
-    black_bird1 = BlackBird(0, 100)
-    black_bird1.update_loc()
-    screen.blit(black_bird1.image, black_bird1.get_pos())
-    pygame.display.flip()
-
-    blue_bird1 = BlueBird(0, 100)
-    blue_bird1.update_loc()
-    screen.blit(blue_bird1.image, blue_bird1.get_pos())
-    pygame.display.flip()
+    for bird in all_birds:
+        bird.update_loc()
+        screen.blit(bird.image, bird.get_pos())
+        #pygame.display.flip()
 
 
     for bullet in all_bullets:
         bullet.update_loc()
         screen.blit(bullet.image, bullet.get_pos())
-        pygame.display.flip()
 
-    screen.blit(img_background, (0, 0)) # prevents from leaving plain residue on the screen
-    # putting the birds:
-    # black_bird1 = BlackBird(100, 100)
 
     mouse_point = pygame.mouse.get_pos()
     screen.blit(player_image, mouse_point)
