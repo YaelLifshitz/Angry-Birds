@@ -50,8 +50,14 @@ clock = pygame.time.Clock()
 
 # init music
 pygame.mixer.init()
-pygame.mixer.music.load(os.path.join(sound_folder, "Angry Birds Theme Song.mp3"))
-pygame.mixer.music.play(loops=-1)
+pygame.mixer.music.load('sound\Angry Birds Theme Song.mp3')
+pygame.mixer.music.play(-1)
+
+crash_sound = pygame.mixer.Sound("sound\Bomb Explosion 1-SoundBible.com-980698079.wav")
+loser_sound = pygame.mixer.Sound("sound\Smashing-Yuri_Santana-1233262689.wav")
+gunshot_sound = pygame.mixer.Sound("sound\gunshot_single-mike-koenig.wav")
+#pygame.mixer.music.load(os.path.join(sound_folder, "Angry Birds Theme Song.mp3"))
+#pygame.mixer.music.play(loops=-1)
 
 
 all_bullets = pygame.sprite.Group()
@@ -79,8 +85,6 @@ while not finish:
                 bird = BlueBird(-5, y)
             all_birds.add(bird)
 
-
-
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == LEFT:
             x, y = player.get_pos()
             # Creating the bullets
@@ -88,6 +92,8 @@ while not finish:
             all_bullets.add(bullet)
             screen.blit(bullet.image, bullet.get_pos())
             pygame.display.flip()
+            pygame.mixer.Sound.play(gunshot_sound)
+            #pygame.mixer.music.play()
 
         else:
             mouse_point = pygame.mouse.get_pos()
@@ -109,15 +115,18 @@ while not finish:
         bullet.update_loc()
         screen.blit(bullet.image, bullet.get_pos())
         # Checking if a bullet hits a bird and if so it will delete the bird
-        bullet_hits_birds_list = pygame.sprite.spritecollide(bullet, all_birds, True)
+        for bird in all_birds:
+            if (bullet.rect.colliderect(bird.rect)):
+                bullet_hits_birds_list = pygame.sprite.spritecollide(bullet, all_birds, True)
+                pygame.mixer.Sound.play(crash_sound)
+
 
     # Checking if a bullet hits a bird and if so it will delete the bird
-    if pygame.sprite.spritecollide(player, all_birds):
-        birds_hits_player_list = pygame.sprite.spritecollide(player, all_birds, True)
-        pygame.mixer.music.load(os.path.join(sound_folder, "Lose , Losing Sound Effects All Sounds.mp3"))
-        pygame.mixer.music.play()
+    for bird in all_birds:
+        if (player.rect.colliderect(bird.rect)):
+            birds_hits_player_list = pygame.sprite.spritecollide(player, all_birds, True)
+            pygame.mixer.Sound.play(loser_sound)
 
-    print(birds_hits_player_list)
 
     # Draw / render
     screen.blit(player.image, player.get_pos())
