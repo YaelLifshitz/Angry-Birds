@@ -4,6 +4,7 @@ from shapes import BlackBird
 from shapes import BlueBird
 from shapes import Plain
 from shapes import Bullet
+import sys
 import os
 pygame.init()
 # Set up an assets folders, so the game could run on any computer
@@ -54,6 +55,7 @@ pygame.mixer.music.load('sound\Angry Birds Theme Song.mp3')
 pygame.mixer.music.play(-1)
 
 crash_sound = pygame.mixer.Sound("sound\Bomb Explosion 1-SoundBible.com-980698079.wav")
+winning_sound = pygame.mixer.Sound("sound\Ta Da-SoundBible.com-1884170640.wav")
 loser_sound = pygame.mixer.Sound("sound\Smashing-Yuri_Santana-1233262689.wav")
 gunshot_sound = pygame.mixer.Sound("sound\gunshot_single-mike-koenig.wav")
 #pygame.mixer.music.load(os.path.join(sound_folder, "Angry Birds Theme Song.mp3"))
@@ -64,6 +66,10 @@ all_bullets = pygame.sprite.Group()
 all_birds = pygame.sprite.Group()
 player = Plain()
 pygame.time.set_timer(pygame.USEREVENT, 500)
+score = 0 # player score
+life_score = 1 # How many times the player can touch the birds before loosing
+myfont = pygame.font.SysFont("monospace", 16)
+
 ## Game loop:
 finish = False
 while not finish:
@@ -119,6 +125,7 @@ while not finish:
             if (bullet.rect.colliderect(bird.rect)):
                 bullet_hits_birds_list = pygame.sprite.spritecollide(bullet, all_birds, True)
                 pygame.mixer.Sound.play(crash_sound)
+                score += 1
 
 
     # Checking if a bullet hits a bird and if so it will delete the bird
@@ -126,16 +133,30 @@ while not finish:
         if (player.rect.colliderect(bird.rect)):
             birds_hits_player_list = pygame.sprite.spritecollide(player, all_birds, True)
             pygame.mixer.Sound.play(loser_sound)
-
+            life_score -= 1
 
     # Draw / render
     screen.blit(player.image, player.get_pos())
 
+    # Score bord:
+    scoretext = myfont.render("Score {0}".format(score), 1, (0, 0, 0))
+    screen.blit(scoretext, (5, 10))
+    # life score bord
+    lifetext = myfont.render("life {0}".format(life_score), 1, (0, 0, 0))
+    screen.blit(lifetext, (5, 30))
 
-    # bullet_hits_birds_list = pygame.sprite.spritecollide(all_bullets, all_birds, True)
+    if life_score < 0:
+        # img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
+        # screen.blit(img_background, (0, 0))
+        while not finish:
+            img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
+            screen.blit(img_background, (100, 50))
 
-    # mouse_point = pygame.mouse.get_pos()
-    # screen.blit(player_image, mouse_point)  # In order to show the plain
+            pygame.display.flip()
+            for event in pygame.event.get():
+                # Check if user closed the window
+                if event.type == pygame.QUIT:
+                    finish = True
 
 
 pygame.quit()
