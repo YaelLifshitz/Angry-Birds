@@ -1,5 +1,5 @@
 import pygame
-import random
+from random import randint
 from shapes import BlackBird
 from shapes import BlueBird
 from shapes import Bullet
@@ -76,14 +76,12 @@ while not finish:
     screen.blit(img_background, (0, 0))
 
 
-
-    for i in range(1):
-        y1 = randint(0, 400)
-        y2 = randint(0, 400)
-        bird = BlackBird(0, y1)
-        all_birds.add(bird)
-        bird = BlueBird(0, y2)
-        all_birds.add(bird)
+    y1 = randint(0, 400)
+    y2 = randint(0, 400)
+    bird = BlackBird(0, y1)
+    all_birds.add(bird)
+    bird = BlueBird(0, y2)
+    all_birds.add(bird)
 
 
     all_birds.draw(screen)

@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 
 
 class BlueBird(pygame.sprite.Sprite):
@@ -12,8 +13,8 @@ class BlueBird(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.__vx = 20
-        self.__vy = 0
+        self.__vx = randint(0, 10)
+        self.__vy = randint (-10, 10)
 
     # the next few methodes rule is to find the birds locations each time we want
     def update_v(self, vx, vy):
@@ -41,8 +42,8 @@ class BlackBird(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.__vx = 20
-        self.__vy = 0
+        self.__vx = randint(0, 10)
+        self.__vy = randint(-10, 10)
 
     # the next few methodes rule is to find the birds locations each time we want
     def update_v(self, vx, vy):
@@ -71,7 +72,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.__vx = 10
+        self.__vx = 20
         self.__vy = 0
 
     # the next few methodes rule is to find the birds locations each time we want
