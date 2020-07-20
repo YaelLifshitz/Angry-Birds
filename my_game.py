@@ -76,5 +76,7 @@ start_over = False
 
 # to play I need to call the game_loop function
 # I need to do the start over button
+
+my_function
 pygame.quit()
 
