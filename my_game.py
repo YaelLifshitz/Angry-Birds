@@ -4,6 +4,7 @@ from shapes import BlackBird
 from shapes import BlueBird
 from shapes import Plain
 from shapes import Bullet
+from shapes import Button
 import sys
 import os
 pygame.init()
@@ -16,6 +17,8 @@ sound_folder = os.path.join(Angry_Birds_Game_folder, "sound")
 WINDOW_WIDTH = 802
 WINDOW_HEIGHT = 466
 PINK_BACKGROUND = (255, 20, 147)
+LIGHT_PINK = (255, 174, 201)
+LIFES = 0
 FPS = 60 # frames per sec
 SOUND_FILE = "Angry Birds Theme Song.mp3"
 
@@ -67,97 +70,11 @@ all_birds = pygame.sprite.Group()
 player = Plain()
 pygame.time.set_timer(pygame.USEREVENT, 500)
 score = 0 # player score
-life_score = 1 # How many times the player can touch the birds before loosing
+life_score = LIFES # How many times the player can touch the birds before loosing
 myfont = pygame.font.SysFont("monospace", 16)
+start_over = False
 
-## Game loop:
-finish = False
-while not finish:
-    # Keep loop running at the same speed
-    clock.tick(FPS)
-    pygame.display.flip()
-    # Process input (events)
-    for event in pygame.event.get():
-        # Check if user closed the window
-        if event.type == pygame.QUIT:
-            finish = True
-        # timing the birds creation
-        if event.type == pygame.USEREVENT:
-            random_choose = randint(1, 2)
-            y = randint(0, 400)
-            if random_choose == 1:
-                bird = BlackBird(-5, y)
-            else:
-                bird = BlueBird(-5, y)
-            all_birds.add(bird)
-
-        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == LEFT:
-            x, y = player.get_pos()
-            # Creating the bullets
-            bullet = Bullet(x, y)
-            all_bullets.add(bullet)
-            screen.blit(bullet.image, bullet.get_pos())
-            pygame.display.flip()
-            pygame.mixer.Sound.play(gunshot_sound)
-            #pygame.mixer.music.play()
-
-        else:
-            mouse_point = pygame.mouse.get_pos()
-            player.update_loc_mouse(mouse_point)
-
-    # In order to not leaving marks on background from moving objects
-    screen.blit(img_background, (0, 0))
-
-
-
-    # Updates:
-
-    for bird in all_birds:
-        bird.update_loc()
-        screen.blit(bird.image, bird.get_pos())
-
-
-    for bullet in all_bullets:
-        bullet.update_loc()
-        screen.blit(bullet.image, bullet.get_pos())
-        # Checking if a bullet hits a bird and if so it will delete the bird
-        for bird in all_birds:
-            if (bullet.rect.colliderect(bird.rect)):
-                bullet_hits_birds_list = pygame.sprite.spritecollide(bullet, all_birds, True)
-                pygame.mixer.Sound.play(crash_sound)
-                score += 1
-
-
-    # Checking if a bullet hits a bird and if so it will delete the bird
-    for bird in all_birds:
-        if (player.rect.colliderect(bird.rect)):
-            birds_hits_player_list = pygame.sprite.spritecollide(player, all_birds, True)
-            pygame.mixer.Sound.play(loser_sound)
-            life_score -= 1
-
-    # Draw / render
-    screen.blit(player.image, player.get_pos())
-
-    # Score bord:
-    scoretext = myfont.render("Score {0}".format(score), 1, (0, 0, 0))
-    screen.blit(scoretext, (5, 10))
-    # life score bord
-    lifetext = myfont.render("life {0}".format(life_score), 1, (0, 0, 0))
-    screen.blit(lifetext, (5, 30))
-
-    if life_score < 0:
-        # img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
-        # screen.blit(img_background, (0, 0))
-        while not finish:
-            img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
-            screen.blit(img_background, (100, 50))
-
-            pygame.display.flip()
-            for event in pygame.event.get():
-                # Check if user closed the window
-                if event.type == pygame.QUIT:
-                    finish = True
-
-
+# to play I need to call the game_loop function
+# I need to do the start over button
 pygame.quit()
 
