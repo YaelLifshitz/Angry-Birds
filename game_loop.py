@@ -10,7 +10,8 @@ import os
 
 
 
-def my_function(clock, FPS, all_birds, player, all_bullets, LEFT, screen, gunshot_sound, crash_sound, score, loser_sound, life_score, myfont, img_background):
+def my_function(clock, FPS, screen, all_birds, player, all_bullets, LEFT, score, life_score, myfont, gunshot_sound, crash_sound,  img_background, loser_sound):
+
     finish = False
     while not finish:
         # Keep loop running at the same speed

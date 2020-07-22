@@ -8,6 +8,22 @@ from shapes import Button
 import sys
 import os
 from game_loop import my_function
+
+
+def init_screen(WINDOW_WIDTH, WINDOW_HEIGHT, img_folder):
+    # Init screen
+    pygame.init()
+    size = (WINDOW_HEIGHT, WINDOW_WIDTH)
+    screen = pygame.display.set_mode(size)
+    pygame.display.set_caption("Angry Birds Game")
+    img_background = pygame.image.load(os.path.join(img_folder, 'clouds background.jpg')).convert()
+    screen.blit(img_background, (0, 0))  # loading the image to coordinates (0,0)
+    # if we load to (150,0) the image will move more to the right on the screen
+    # so the bottom rightest pixel on the screen will be (801, 465)
+    print("screen")
+    return
+
+
 pygame.init()
 # Set up an assets folders, so the game could run on any computer
 Angry_Birds_Game_folder = os.path.dirname(__file__)
@@ -17,6 +33,7 @@ sound_folder = os.path.join(Angry_Birds_Game_folder, "sound")
 # Some constant var
 WINDOW_WIDTH = 802
 WINDOW_HEIGHT = 466
+size = (WINDOW_WIDTH, WINDOW_HEIGHT)
 PINK_BACKGROUND = (255, 20, 147)
 LIGHT_PINK = (255, 174, 201)
 LIFES = 0
@@ -29,7 +46,6 @@ LEFT = 1
 SCROLL = 2
 RIGHT = 3
 
-
 ## initialzing pygame and creating a window
 
 # Init screen
@@ -38,7 +54,7 @@ size = (WINDOW_WIDTH, WINDOW_HEIGHT)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Angry Birds Game")
 img_background = pygame.image.load(os.path.join(img_folder, 'clouds background.jpg')).convert()
-screen.blit(img_background, (0, 0))  # loading the image to coordinates (0,0)
+screen.blit(img_background, (0, 0)) # loading the image to coordinates (0,0)
 # if we load to (150,0) the image will move more to the right on the screen
 # so the bottom rightest pixel on the screen will be (801, 465)
 
@@ -70,17 +86,16 @@ all_bullets = pygame.sprite.Group()
 all_birds = pygame.sprite.Group()
 player = Plain()
 pygame.time.set_timer(pygame.USEREVENT, 500)
+
 score = 0 # player score
-life_score = LIFES # How many times the player can touch the birds before loosing
+life_score = 0 # How many times the player can touch the birds before loosing
 myfont = pygame.font.SysFont("monospace", 16)
-start_over = False
 
 # to play I need to call the game_loop function
 # I need to do the start over button
 
-life_score = my_function(clock, FPS, all_birds, player, all_bullets, LEFT, screen, gunshot_sound, crash_sound, score, loser_sound, life_score, myfont, img_background)
+life_score = my_function(clock, FPS, screen, all_birds, player, all_bullets, LEFT, score, life_score, myfont, gunshot_sound, crash_sound,  img_background, loser_sound)
 if life_score < 0:
-    print("life score")
     # img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
     # screen.blit(img_background, (0, 0))
     finish = False
@@ -106,8 +121,26 @@ if life_score < 0:
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if start_over_button.isOver(mouse_point):
-                    life_score = my_function(clock, FPS, all_birds, player, all_bullets, LEFT, screen,
-                                         gunshot_sound, crash_sound, score, loser_sound, 0, myfont, img_background)
+                    score = 0
+                    life_score = 0
+
+                    # Init screen
+                    size = (WINDOW_WIDTH, WINDOW_HEIGHT)
+                    screen = pygame.display.set_mode(size)
+                    pygame.display.set_caption("Angry Birds Game")
+                    img_background = pygame.image.load(os.path.join(img_folder, 'clouds background.jpg')).convert()
+                    screen.blit(img_background, (0, 0))  # loading the image to coordinates (0,0)
+                    # if we load to (150,0) the image will move more to the right on the screen
+                    # so the bottom rightest pixel on the screen will be (801, 465)
+
+                    #init the birds and bullets and the player
+                    all_bullets = pygame.sprite.Group()
+                    all_birds = pygame.sprite.Group()
+                    player = Plain()
+
+                    life_score = my_function(clock, FPS, screen, all_birds, player, all_bullets, LEFT, score,
+                                             life_score, myfont, gunshot_sound, crash_sound, img_background,
+                                             loser_sound)
 
 pygame.quit()
 
