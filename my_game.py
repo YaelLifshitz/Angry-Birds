@@ -130,3 +130,4 @@ if life_score < 0:
 
 pygame.quit()
 
+
