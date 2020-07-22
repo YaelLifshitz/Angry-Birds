@@ -10,20 +10,6 @@ import os
 from game_loop import my_function
 
 
-def init_screen(WINDOW_WIDTH, WINDOW_HEIGHT, img_folder):
-    # Init screen
-    pygame.init()
-    size = (WINDOW_HEIGHT, WINDOW_WIDTH)
-    screen = pygame.display.set_mode(size)
-    pygame.display.set_caption("Angry Birds Game")
-    img_background = pygame.image.load(os.path.join(img_folder, 'clouds background.jpg')).convert()
-    screen.blit(img_background, (0, 0))  # loading the image to coordinates (0,0)
-    # if we load to (150,0) the image will move more to the right on the screen
-    # so the bottom rightest pixel on the screen will be (801, 465)
-    print("screen")
-    return
-
-
 pygame.init()
 # Set up an assets folders, so the game could run on any computer
 Angry_Birds_Game_folder = os.path.dirname(__file__)
