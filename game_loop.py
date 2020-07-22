@@ -8,7 +8,9 @@ from shapes import Button
 import sys
 import os
 
-def my_function(clock, FPS, all_birds, player, all_bullets, LEFT, screen, gunshot_sound, crash_sound, score, loser_sound, life_score, img_folder, LIGHT_PINK, LIFES, myfont):
+
+
+def my_function(clock, FPS, all_birds, player, all_bullets, LEFT, screen, gunshot_sound, crash_sound, score, loser_sound, life_score, myfont, img_background):
     finish = False
     while not finish:
         # Keep loop running at the same speed
@@ -84,28 +86,6 @@ def my_function(clock, FPS, all_birds, player, all_bullets, LEFT, screen, gunsho
         screen.blit(lifetext, (5, 30))
 
         if life_score < 0:
-            # img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
-            # screen.blit(img_background, (0, 0))
-            while not finish:
-                img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
-                screen.blit(img_background, (100, 50))
-                pygame.mouse.set_visible(True)  # in order to see the mouse arrow
-                start_over_button = Button(LIGHT_PINK, 335, 401, 150, 50, 'Start Over :)')
-                start_over_button.draw(screen, (0, 0, 0))
-                if event.type == pygame.MOUSEMOTION:
-                    if start_over_button.isOver(mouse_point):
-                        start_over_button.color = LIGHT_PINK
-                    else:
-                        start_over_button.color = (255, 34, 106)
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if start_over_button.isOver(mouse_point):
-                        start_over = True
-                        life_score = LIFES
+            return life_score
 
 
-                pygame.display.flip()
-                for event in pygame.event.get():
-                    # Check if user closed the window
-                    if event.type == pygame.QUIT:
-                        finish = True

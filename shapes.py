@@ -22,11 +22,13 @@ class Plain(pygame.sprite.Sprite):
 
     # the next few methodes role is to find the plain locations each time we want
     def update_loc_mouse(self, mouse_point):
-        self.rect.x, self.rect.y = mouse_point
-        if self.rect.x < 600:
-            self.rect.x = 600
-        elif self.rect.x > 790:
-            self.rect.x = 790
+            self.rect.x, self.rect.y = mouse_point
+            '''
+            if self.rect.x < 600:
+                self.rect.x = 600
+            elif self.rect.x > 790:
+                self.rect.x = 790
+            '''
 
     # def update_loc_k(self):
     #     self.speedx = 0

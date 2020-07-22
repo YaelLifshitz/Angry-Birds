@@ -7,6 +7,7 @@ from shapes import Bullet
 from shapes import Button
 import sys
 import os
+from game_loop import my_function
 pygame.init()
 # Set up an assets folders, so the game could run on any computer
 Angry_Birds_Game_folder = os.path.dirname(__file__)
@@ -77,6 +78,36 @@ start_over = False
 # to play I need to call the game_loop function
 # I need to do the start over button
 
-my_function
+life_score = my_function(clock, FPS, all_birds, player, all_bullets, LEFT, screen, gunshot_sound, crash_sound, score, loser_sound, life_score, myfont, img_background)
+if life_score < 0:
+    print("life score")
+    # img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
+    # screen.blit(img_background, (0, 0))
+    finish = False
+    while not finish and life_score < 0:
+        clock.tick(FPS)
+        pygame.display.update()
+        img_background = pygame.image.load(os.path.join(img_folder, 'the game you just lost it.jpg')).convert()
+        screen.blit(img_background, (100, 50))
+        pygame.mouse.set_visible(True)  # in order to see the mouse arrow
+        # making the button
+        start_over_button = Button(LIGHT_PINK, 335, 401, 150, 50, 'Start Over :)')
+        # drawing and adding a frame in the color specified
+        start_over_button.draw(screen, (0, 0, 0))
+        for event in pygame.event.get():
+            mouse_point = pygame.mouse.get_pos()
+            if event.type == pygame.QUIT:
+                finish = True
+            if event.type == pygame.MOUSEMOTION:
+                if start_over_button.isOver(mouse_point):
+                    start_over_button.color = (255, 34, 106)
+                else:
+                    start_over_button.color = LIGHT_PINK
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if start_over_button.isOver(mouse_point):
+                    life_score = my_function(clock, FPS, all_birds, player, all_bullets, LEFT, screen,
+                                         gunshot_sound, crash_sound, score, loser_sound, 0, myfont, img_background)
+
 pygame.quit()
 
