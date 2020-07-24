@@ -130,4 +130,4 @@ if life_score < 0:
 
 pygame.quit()
 
-# just checking h
+# just checking hf
