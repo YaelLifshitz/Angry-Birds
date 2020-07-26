@@ -110,7 +110,7 @@ if life_score < 0:
                     score = 0
                     life_score = 0
 
-                    # Init screen
+                    # Init screen for restart the game
                     size = (WINDOW_WIDTH, WINDOW_HEIGHT)
                     screen = pygame.display.set_mode(size)
                     pygame.display.set_caption("Angry Birds Game")
