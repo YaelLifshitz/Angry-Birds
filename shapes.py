@@ -30,21 +30,6 @@ class Plain(pygame.sprite.Sprite):
                 self.rect.x = 790
             '''
 
-    # def update_loc_k(self):
-    #     self.speedx = 0
-    #     self.speedy = 0
-    #     keystate = pygame.key.get_pressed()
-    #     if keystate[pygame.K_LEFT]:
-    #         self.speedx = -5
-    #     if keystate[pygame.K_RIGHT]:
-    #         self.speedx = 5
-    #     self.rect.x += self.speedx
-    #     if keystate[pygame.K_UP]:
-    #         self.speedy = -5
-    #     if keystate[pygame.K_DOWN]:
-    #         self.speedy = +5
-    #     self.rect.y += self.speedy
-
     def get_pos(self):
         return self.rect.x, self.rect.y
 
@@ -108,6 +93,7 @@ class BlackBird(pygame.sprite.Sprite):
         return self.vx, self.vy
 
 
+
 class Bullet(pygame.sprite.Sprite):
     # the constructor
     def __init__(self, x, y):
@@ -136,6 +122,7 @@ class Bullet(pygame.sprite.Sprite):
         return self.__vx, self.__vy
 
 
+
 class Button():
     def __init__(self, color, x, y, width, height, text=''):
         self.color = color
@@ -149,19 +136,17 @@ class Button():
         # Call this method to draw the button on the screen
         if outline:
             pygame.draw.rect(screen, outline, (self.x - 2, self.y - 2, self.width + 4, self.height + 4), 0)
-
         pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height), 0)
 
         if self.text != '':
             font = pygame.font.SysFont('comicsans', 30)
             text = font.render(self.text, 1, (0, 0, 0))
-            screen.blit(text, (
-            self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
+            screen.blit(text, (self.x + (self.width / 2 - text.get_width() / 2),
+                               self.y + (self.height / 2 - text.get_height() / 2)))
 
     def isOver(self, pos):
         # Pos is the mouse position or a tuple of (x,y) coordinates
         if pos[0] > self.x and pos[0] < self.x + self.width:
             if pos[1] > self.y and pos[1] < self.y + self.height:
                 return True
-
         return False

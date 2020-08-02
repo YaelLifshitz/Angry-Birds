@@ -61,15 +61,19 @@ def my_function(clock, FPS, screen, all_birds, player, all_bullets, LEFT, score,
         for bullet in all_bullets:
             bullet.update_loc()
             screen.blit(bullet.image, bullet.get_pos())
-            # Checking if a bullet hits a bird and if so it will delete the bird
+            # Checking if a bullet hits a bird and if so it will make a crushing sound and raise the player score
+            # and delete the bird and the bullet
             for bird in all_birds:
                 if (bullet.rect.colliderect(bird.rect)):
+                    # deleting the bird from the screen
                     bullet_hits_birds_list = pygame.sprite.spritecollide(bullet, all_birds, True)
+                    # deleting the bullet from th screen
+                    bullet_hits_birds_list = pygame.sprite.spritecollide(bird, all_bullets, True)
                     pygame.mixer.Sound.play(crash_sound)
                     score += 1
 
 
-        # Checking if a bullet hits a bird and if so it will delete the bird
+        # Checking if a bird hits a player and if so it will make the loser sound and reduce life
         for bird in all_birds:
             if (player.rect.colliderect(bird.rect)):
                 birds_hits_player_list = pygame.sprite.spritecollide(player, all_birds, True)
