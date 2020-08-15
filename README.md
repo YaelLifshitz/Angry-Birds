@@ -6,7 +6,7 @@ The player moves using the mouse and shoots using the left click in the mouse. T
 
 Ways I can improve the game (hopefully will add all of this in the future):
 
-•	give the player option to restart the game - working on that now
+•	give the player option to restart the game - doen!
 
 •	make the background move
 
@@ -15,3 +15,6 @@ Ways I can improve the game (hopefully will add all of this in the future):
 •	more interactions with objects
 
 •	diffrenet stages
+
+* make a init screen function- to reduce some code and make the code more readable.
+
