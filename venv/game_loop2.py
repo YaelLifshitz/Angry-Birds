@@ -10,6 +10,16 @@ import os
 
 
 
+print("Hello world")
+
+
+
+
+
+
+
+
+
 def my_function2(clock, FPS, screen, all_birds, player, all_bullets, LEFT, score, life_score, myfont, gunshot_sound, crash_sound,  img_background, loser_sound):
 
     finish = False

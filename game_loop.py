@@ -46,7 +46,7 @@ def my_function(clock, FPS, screen, all_birds, player, all_bullets, LEFT, score,
                 mouse_point = pygame.mouse.get_pos()
                 player.update_loc_mouse(mouse_point)
 
-        # In order to not leaving marks on background from moving objects
+        # In order to not leave marks on the background from moving objects
         screen.blit(img_background, (0, 0))
 
 
@@ -83,7 +83,7 @@ def my_function(clock, FPS, screen, all_birds, player, all_bullets, LEFT, score,
         # Draw / render
         screen.blit(player.image, player.get_pos())
 
-        # Score bord:
+        # Score board:
         scoretext = myfont.render("Score {0}".format(score), 1, (0, 0, 0))
         screen.blit(scoretext, (5, 10))
         # life score bord

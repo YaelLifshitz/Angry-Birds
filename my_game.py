@@ -19,6 +19,7 @@ sound_folder = os.path.join(Angry_Birds_Game_folder, "sound")
 # Some constant var
 WINDOW_WIDTH = 802
 WINDOW_HEIGHT = 466
+user = "Tamar oling"
 size = (WINDOW_WIDTH, WINDOW_HEIGHT)
 PINK_BACKGROUND = (255, 20, 147)
 LIGHT_PINK = (255, 174, 201)
